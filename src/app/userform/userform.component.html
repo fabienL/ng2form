@@ -1,0 +1,42 @@
+<form [formGroup]="userform" novalidate>
+  <fieldset class="form-group">
+    <label for="username">Votre nom</label>
+    <input class="form-control" formControlName="username" id="username">
+    <p class="alert alert-danger" *ngIf="showErrorRequired('username')">
+      Le nom est obligatoire
+    </p>
+  </fieldset>
+
+  <fieldset class="form-group">
+    <label for="username">Votre Email</label>
+    <input type="email" class="form-control" formControlName="useremail" id="email" placeholder="Votre email">
+    <p class="alert alert-danger" *ngIf="showErrorRequired('useremail')">
+      Le mail doit etre renseigné
+    </p>
+  </fieldset>
+  <fieldset class="form-group" formGroupName="passwordFormGroup">
+    <label for="userpassword">Mot de passe</label>
+    <input type="password" class="form-control" formControlName="userpassword" id="userpassword"
+           placeholder="Mot de passe">
+    <label for="userpassword">Confirmation </label>
+    <input type="password" class="form-control" formControlName="userconfirmpassword" id="userconfirmpassword"
+           placeholder="Confirmer Mot de passe">
+    <p class="alert alert-danger"
+       *ngIf="userform.get('passwordFormGroup').hasError('confirmpassword')  && userform.get('passwordFormGroup').touched">
+      Les mots de passe ne correspondent pas
+    </p>
+  </fieldset>
+
+  <fieldset class="form-group">
+    <label for="cgu">Règlement/cgu ? </label>
+    <input type="checkbox" class="form-control" formControlName="cgu" id="cgu">
+    <p class="alert alert-danger" *ngIf="showErrorRequired('cgu')">
+      Obligatoire
+    </p>
+  </fieldset>
+
+  <fieldset>
+    <button (click)="validateForm()">Envoyer</button>
+  </fieldset>
+  <p> {{userform.status}} </p>
+</form>
